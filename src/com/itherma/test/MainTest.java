@@ -18,23 +18,16 @@ public class MainTest {
 			Document document = reader.read(new File("src/xml/stus.xml"));
 			//3.获得元素
 			Element rootElement = document.getRootElement();
+
+			//要想使用Xpath，还得添加jar，获取的是第一个只返回一个
+			Element namElement = (Element) rootElement.selectSingleNode("//name");
+//			System.out.println(namElement.getText());
 			
-//			System.out.println(rootElement.element("stu").getName());
-			
-//			System.out.println(rootElement.element("stu").element("age").getStringValue());
-//			System.out.println(rootElement.element("stu").element("age").getText());
-			
-			
-			List<Element> elements = rootElement.elements();
-//			System.out.println(elements.size());
-			for(Element element:elements) {
-//				System.out.println(element.getName());
-				String name = element.element("name").getText();
-				String age = element.element("age").getText();
-				String address = element.element("address").getText();
-				System.out.println("name" + name + " age" + age + " address" + address);
+			//获取文档里所有的元素
+			List<Element> selectNodes = rootElement.selectNodes("//name");
+			for (Element element : selectNodes) {
+				System.out.println(element.getText());
 			}
-			
 			
 		} catch (DocumentException e) {
 			e.printStackTrace();
